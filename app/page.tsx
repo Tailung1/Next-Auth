@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react";
 
 export default function Home() {
-  const session = useSession();
+  const { data: session } = useSession();
   console.log(session);
-  return <div>Logged in</div>;
+  return <div>Username:{session?.user?.name}</div>;
 }
