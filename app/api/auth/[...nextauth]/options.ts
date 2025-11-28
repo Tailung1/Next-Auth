@@ -1,7 +1,7 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-export const options: NextAuthOptions = {
+export   const options: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -17,14 +17,17 @@ export const options: NextAuthOptions = {
           placeholder: "Enter password",
         },
       },
-      async autorize(credentials) {
-        const user = { id: 1, name: "ramaz", password: "ramaz123" };
+      async authorize(credentials) {
+        const user = { id: "1", name: "ramaz", password: "ramaz123" };
         if (
-          credentials.username === user.name &&
-          credentials.password === user.password
+          credentials?.username === user.name &&
+          credentials?.password === user.password
         ) {
+       
           return user;
         } else {
+            
+
           return null;
         }
       },
