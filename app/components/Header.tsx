@@ -1,5 +1,4 @@
 import Link from "next/link";
-
 export default function Header() {
   return (
     <div>
@@ -12,6 +11,9 @@ export default function Header() {
         </li>
         <li className='text-red-700 '>
           <Link href={"api/auth/signout"}>Sign out</Link>
+        </li>
+        <li className='text-violet-600-700'>
+          <Link href={"/about"}>About</Link>
         </li>
       </ul>
     </div>
