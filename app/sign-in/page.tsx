@@ -1,24 +1,33 @@
 "use client";
+import { signIn } from "next-auth/react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
+    const route=useRouter()
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
-      ...formData, 
+      ...formData,
       [name]: value,
     });
   };
 
-  // Handle form submission
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    console.log(formData);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const response = await signIn("credentials", {
+      username: formData.username,
+      password: formData.password,
+      redirect:false
+    });
+    if(response?.ok) {
+        route.push("/")
+    }
   };
 
   return (
@@ -42,7 +51,7 @@ const LoginForm = () => {
               value={formData.username}
               onChange={handleChange}
               className='w-full p-3 border border-gray-300 rounded-md mt-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent'
-              required
+           
             />
           </div>
           <div className='mb-6'>
@@ -59,25 +68,17 @@ const LoginForm = () => {
               value={formData.password}
               onChange={handleChange}
               className='w-full p-3 border border-gray-300 rounded-md mt-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent'
-              required
+       
             />
           </div>
           <button
             type='submit'
-            className='w-full p-3 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2'
+            className='w-full cursor-pointer p-3 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2'
           >
             Login
           </button>
         </form>
-        {/* Optional "Forgot Password" Link */}
-        <div className='mt-4 text-center'>
-          <a
-            href='#'
-            className='text-sm text-green-500 hover:underline'
-          >
-            Forgot your password?
-          </a>
-        </div>
+    
       </div>
     </div>
   );
