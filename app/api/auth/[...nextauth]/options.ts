@@ -1,6 +1,7 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github"
+import { signIn } from "next-auth/react";
 
 
 export   const options: NextAuthOptions = {
@@ -36,4 +37,5 @@ export   const options: NextAuthOptions = {
         clientSecret:process.env.GITHUB_SECRET as string
     })
   ],
+  pages:{signIn:"/sign-in"}
 };

@@ -4,7 +4,7 @@ export default function Header() {
     <div>
       <ul className='flex gap-1 bg-blue-500 '>
         <li className='text-green-500'>
-          <Link href={"api/auth/signin"}>Sign in</Link>
+          <Link href={"/sign-in"}>Sign in</Link>
         </li>
         <li className='text-gray-600-500'>
           <Link href={"/"}>home</Link>
