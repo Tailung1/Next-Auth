@@ -1,3 +1,5 @@
+"use client"
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 export default function Header() {
   return (
@@ -9,8 +11,8 @@ export default function Header() {
         <li className='text-gray-600-500'>
           <Link href={"/"}>home</Link>
         </li>
-        <li className='text-red-700 '>
-          <Link href={"api/auth/signout"}>Sign out</Link>
+        <li  onClick={() => signOut()} className=' cursor-pointer text-red-700 '>
+          Sign out
         </li>
         <li className='text-violet-600-700'>
           <Link href={"/about"}>About</Link>

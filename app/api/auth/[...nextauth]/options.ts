@@ -1,10 +1,8 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import GitHubProvider from "next-auth/providers/github"
-import { signIn } from "next-auth/react";
+import GitHubProvider from "next-auth/providers/github";
 
-
-export   const options: NextAuthOptions = {
+export const options: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -21,7 +19,13 @@ export   const options: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
-        const user = { id: "1", name: "ramaz", password: "ramaz123" };
+        const user = {
+          id: "1",
+          name: "ramaz",
+          age: 12,
+          email: "ramaz11@gmail.com",
+          password: "ramaz123",
+        };
         if (
           credentials?.username === user.name &&
           credentials?.password === user.password
@@ -33,9 +37,24 @@ export   const options: NextAuthOptions = {
       },
     }),
     GitHubProvider({
-        clientId:process.env.GITHUB_ID as string,
-        clientSecret:process.env.GITHUB_SECRET as string
-    })
+      clientId: process.env.GITHUB_ID as string,
+      clientSecret: process.env.GITHUB_SECRET as string,
+    }),
   ],
-  pages:{signIn:"/sign-in"}
+
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user;
+      }
+      return token;
+    },
+
+    async session({ session, token }) {
+      session.user = token.user;
+      return session;
+    },
+  },
+
+  pages: { signIn: "/sign-in" },
 };
