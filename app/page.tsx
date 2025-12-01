@@ -5,7 +5,7 @@ import UpdateUser from "./components/updateUser";
 
 export default async function Home() {
   const session = await getServerSession(options);
-  console.log(session)
+  console.log(session,"session")
   return (
     <div>
       <h1>Username:{session?.user?.name} </h1>

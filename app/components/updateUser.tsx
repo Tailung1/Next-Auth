@@ -2,18 +2,18 @@
 import React from "react";
 import { useSession } from "next-auth/react";
 
+
 export default function UpdateUser() {
   const { data, update } = useSession();
-  const { name, setName } = React.useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
-  };
+  const [name, setName] = React.useState("");
+  console.log(data)
+
   return (
     <div>
       <input
         className='border-2'
-        onChange={handleChange}
+        onChange={(e) => setName(e.target.value)}
         type='text'
         name=''
         id=''

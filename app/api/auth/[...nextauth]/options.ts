@@ -46,12 +46,15 @@ export const options: NextAuthOptions = {
   ],
 
   callbacks: {
-    async jwt({ token, user, account, profile }) {
+    async jwt({ token, user, account, profile, trigger, session }) {
       //   if (profile) {
       //     return { ...token, ...profile };
       //   } else {
       //     return { ...token, ...user };
       //   }
+      if ((trigger === "update")) {
+        token.name = session.name;
+      }
       return { ...token, ...user }; // !! github's object's properties are transalted into user's typed properties.. !!
     },
 
