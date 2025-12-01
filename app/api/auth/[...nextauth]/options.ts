@@ -25,6 +25,7 @@ export const options: NextAuthOptions = {
           age: 12,
           email: "ramaz11@gmail.com",
           password: "ramaz123",
+          image: "",
         };
 
         if (
@@ -45,8 +46,13 @@ export const options: NextAuthOptions = {
   ],
 
   callbacks: {
-    async jwt({ token, user }) {
-      return { ...token, ...user };
+    async jwt({ token, user, account, profile }) {
+      //   if (profile) {
+      //     return { ...token, ...profile };
+      //   } else {
+      //     return { ...token, ...user };
+      //   }
+      return { ...token, ...user }; // !! github's object's properties are transalted into user's typed properties.. !!
     },
 
     async session({ session, token }) {
