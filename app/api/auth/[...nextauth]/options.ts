@@ -1,4 +1,4 @@
-import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions, TokenTypes } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 
@@ -26,6 +26,7 @@ export const options: NextAuthOptions = {
           email: "ramaz11@gmail.com",
           password: "ramaz123",
         };
+
         if (
           credentials?.username === user.name &&
           credentials?.password === user.password
@@ -36,6 +37,7 @@ export const options: NextAuthOptions = {
         }
       },
     }),
+
     GitHubProvider({
       clientId: process.env.GITHUB_ID as string,
       clientSecret: process.env.GITHUB_SECRET as string,
@@ -44,14 +46,11 @@ export const options: NextAuthOptions = {
 
   callbacks: {
     async jwt({ token, user }) {
-      if (user) {
-        token.user = user;
-      }
-      return token;
+      return { ...token, ...user };
     },
 
     async session({ session, token }) {
-      session.user = token.user;
+      session.user = token as TokenTypes;
       return session;
     },
   },
