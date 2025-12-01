@@ -52,7 +52,7 @@ export const options: NextAuthOptions = {
       //   } else {
       //     return { ...token, ...user };
       //   }
-      if ((trigger === "update")) {
+      if (trigger === "update") {
         token.name = session.name;
       }
       return { ...token, ...user }; // !! github's object's properties are transalted into user's typed properties.. !!

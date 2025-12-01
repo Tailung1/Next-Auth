@@ -2,12 +2,10 @@
 import React from "react";
 import { useSession } from "next-auth/react";
 
-
 export default function UpdateUser() {
   const { data, update } = useSession();
 
   const [name, setName] = React.useState("");
-  console.log(data)
 
   return (
     <div>
